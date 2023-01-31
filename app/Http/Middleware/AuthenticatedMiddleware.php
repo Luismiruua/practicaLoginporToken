@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedMiddleware
 {
@@ -17,16 +18,14 @@ class AuthenticatedMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check()) {
-            $dato = auth()->user();
+        if (Auth::guard('api')->check()) {
+            return $next($request);
 
-            return response()->json([
-                "Su usuario no está en el sistema",
-                $dato      
-            ]);
         }
+        return response()->json([
+            "Su usuario no está en el sistema",
+        ]);
 
-        return $next($request);
 
     }
 }

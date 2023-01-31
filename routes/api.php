@@ -37,11 +37,12 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     //rutas
     Route::get('/logout', [LoginController::class, 'logout']);
 });
+Route::get('/mostrar', [LoginController::class, 'mostrar']);
 
 
 Route::get('/info', [LoginController::class, 'info']);
 
-Route::get('/infoR', [LoginController::class, 'resrting'])->middleware('auth');
+Route::get('/infoR', [LoginController::class, 'restring'])->middleware('authenticated');
 
 
 Route::get('/home', function (){
