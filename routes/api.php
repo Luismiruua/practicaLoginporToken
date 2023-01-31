@@ -39,10 +39,13 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
 });
 
 
+Route::get('/info', [LoginController::class, 'info']);
+
+Route::get('/infoR', [LoginController::class, 'resrting'])->middleware('auth');
 
 
 Route::get('/home', function (){
-    return 'Primero logueate';
+    return response()->json(['Primero logueate']);
 })->name('home');
 
 

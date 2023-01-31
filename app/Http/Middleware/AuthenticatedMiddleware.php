@@ -18,11 +18,14 @@ class AuthenticatedMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!auth()->check()) {
+            $dato = auth()->user();
+
             return response()->json([
-                "Su usuario no está en el sistema"
+                "Su usuario no está en el sistema",
+                $dato      
             ]);
         }
-        
+
         return $next($request);
 
     }
